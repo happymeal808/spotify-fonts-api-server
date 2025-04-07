@@ -20,6 +20,7 @@ app.use((req, res, next) => {
 });
 
 // Google Fonts endpoint
+console.log('GOOGLE_FONTS_API_KEY:', process.env.GOOGLE_FONTS_API_KEY);
 app.get('/api/fonts', async (req, res) => {
   try {
     const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.GOOGLE_FONTS_API_KEY}`);
