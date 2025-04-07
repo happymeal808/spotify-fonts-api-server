@@ -9,8 +9,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Enable CORS for all origins
 app.use(cors({
-  origin: '*',
+  origin: '*'
 }));
 
 // Google Fonts endpoint
