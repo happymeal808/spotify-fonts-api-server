@@ -9,7 +9,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+}));
 
 // Google Fonts endpoint
 app.get('/api/fonts', async (req, res) => {
