@@ -9,16 +9,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Enable CORS for all origins
-app.use(cors({
-  origin: '*'
-}));
+// Enable CORS for all requests
+app.use(cors());
+app.options('*', cors());
+
+// Debug logging middleware
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.originalUrl}`);
+  next();
+});
 
 // Google Fonts endpoint
 app.get('/api/fonts', async (req, res) => {
   try {
     const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.GOOGLE_FONTS_API_KEY}`);
     const data = await response.json();
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(data);
   } catch (error) {
     console.error('Error fetching fonts:', error);
@@ -44,6 +50,7 @@ app.get('/api/spotify-token', async (req, res) => {
     });
 
     const tokenData = await tokenResponse.json();
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({ access_token: tokenData.access_token });
   } catch (error) {
     console.error('Error fetching Spotify token:', error);
