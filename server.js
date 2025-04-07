@@ -51,6 +51,8 @@ app.get('/api/spotify-token', async (req, res) => {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log('Spotify Token:', tokenData.access_token);  // Log the access token for debugging
+
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({ access_token: tokenData.access_token });
   } catch (error) {
